@@ -1,0 +1,23 @@
+{
+  "name": "web-uart-helper",
+  "version": "1.0.0",
+  "description": "web串口工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teaxus/web-uart-helper.git"
+  },
+  "keywords": [
+    "串口",
+    "web"
+  ],
+  "author": "teaxus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teaxus/web-uart-helper/issues"
+  },
+  "homepage": "https://github.com/teaxus/web-uart-helper#readme"
+}
