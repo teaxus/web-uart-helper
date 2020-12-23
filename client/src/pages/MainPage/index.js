@@ -23,21 +23,9 @@ export default {
         },
         {
           slotName: "opencontrol",
-        },
-        {
+        },{
           slotName: "config",
-        },
-        {
-          href: "/charts",
-          title: "Charts",
-          icon: "fa fa-chart-area",
-          child: [
-            {
-              href: "/charts/sublink",
-              title: "Sub Link",
-            },
-          ],
-        },
+        }
       ],
     };
   },
