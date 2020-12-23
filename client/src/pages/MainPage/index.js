@@ -1,17 +1,18 @@
 import echarts from "echarts";
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-import { UartConfig } from "@/components/UartConfig/index.vue"
+import UartConfig from "@/components/UartConfig/index.vue";
+import ConfigButton from "@/components/ConfigButton/index.vue";
+import SideBarMenu from "@/components/SideBarMenu/SidebarMenu.vue";
 export default {
   name: "MainPage",
   props: {},
   components: {
-    // "sidebar-menu": SidebarMenu,
+    "sidebar-menu": SideBarMenu,
     "uart-config": UartConfig,
   },
   data() {
     return {
       uart_is_opened: false,
-      open_silder_bar: true,
+      min_silder_bar: true,
       menu: [
         {
           header: true,
@@ -19,7 +20,12 @@ export default {
           hiddenOnCollapse: true,
         },
         {
-          icon: "user-secret",
+          title: "xxxxx",
+          icon: "fa fa-wrench",
+        },
+        {
+            // icon: "fa fa-wrench",
+            component:ConfigButton
         },
         {
           href: "/charts",
