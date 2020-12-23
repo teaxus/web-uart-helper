@@ -13,6 +13,34 @@
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  padding: 10px;
+}
+.main-func-item-minify{
+  color: white;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 10px;
+  line-height: 30px;
+  text-decoration: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 20;
+  transition: 0.3s all ease;
+}
+.main-func-item-minify i{
+  height: 30px;
+  line-height: 30px;
+  width: 30px;
+  flex-shrink: 0;
+  text-align: center;
+  border-radius: 3px;
+  background-color: #1e1e21;
 }
 .data-tran-status {
   width: 140px;
@@ -35,3 +63,4 @@
     justify-content: center;
     display: flex;
 }
+

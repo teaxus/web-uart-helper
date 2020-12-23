@@ -1,18 +1,20 @@
 import echarts from "echarts";
 import UartConfig from "@/components/UartConfig/index.vue";
-import ConfigButton from "@/components/ConfigButton/index.vue";
 import SideBarMenu from "@/components/SideBarMenu/SidebarMenu.vue";
+import SidebarMenuIcon from "@/components/SideBarMenu/SidebarMenuIcon.vue";
+
 export default {
   name: "MainPage",
   props: {},
   components: {
+    SidebarMenuIcon,
     "sidebar-menu": SideBarMenu,
     "uart-config": UartConfig,
   },
   data() {
     return {
       uart_is_opened: false,
-      min_silder_bar: true,
+      min_silder_bar: false,
       menu: [
         {
           header: true,
@@ -20,12 +22,10 @@ export default {
           hiddenOnCollapse: true,
         },
         {
-          title: "xxxxx",
-          icon: "fa fa-wrench",
+          slotName: "opencontrol",
         },
         {
-            // icon: "fa fa-wrench",
-            component:ConfigButton
+          slotName: "config",
         },
         {
           href: "/charts",
@@ -101,15 +101,20 @@ export default {
     this.chartLine.setOption(option);
 
     setInterval(() => {
-      option.series[0].data.push(parseInt(Math.random() * 100));
-      option.series[1].data.push(parseInt(Math.random() * 100));
-      if (option.series[0].data.length > 20) {
-        option.series[0].data.shift();
-        option.series[1].data.shift();
+      if (this.uart_is_opened) {
+        option.series[0].data.push(parseInt(Math.random() * 100));
+        option.series[1].data.push(parseInt(Math.random() * 100));
+        if (option.series[0].data.length > 20) {
+          option.series[0].data.shift();
+          option.series[1].data.shift();
+        }
+        this.chartLine.setOption(option);
       }
-      // console.log(option.series[0].data);
-      this.chartLine.setOption(option);
     }, 1000);
   },
-  methods: {},
+  methods: {
+    onToggleCollapse(collapsed) {
+      this.min_silder_bar = collapsed;
+    },
+  },
 };
