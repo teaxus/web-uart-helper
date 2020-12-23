@@ -1,0 +1,23 @@
+{
+  "name": "web-uart-helper-server",
+  "version": "1.0.0",
+  "description": "web串口工具服务端",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "node src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teaxus/web-uart-helper.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teaxus/web-uart-helper/issues"
+  },
+  "homepage": "https://github.com/teaxus/web-uart-helper#readme",
+  "dependencies": {
+    "serialport": "^9.0.4",
+    "ws": "^7.4.1"
+  }
+}
