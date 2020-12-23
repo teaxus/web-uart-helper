@@ -1,11 +1,4 @@
 <template>
-  <div class="main-page-container">
-    <particles-bg
-      color="#2a2a2e"
-      type="square"
-      :bg="true"
-    />
-
     <sidebar-menu
       :collapsed="min_silder_bar"
       :menu="menu"
@@ -124,15 +117,8 @@
         </div>
       </template>
     </sidebar-menu>
-
-    <!-- <div class="uart-config-container"> 
-      <uart-config ref="UartConfig" />
-    </div> -->
-  </div>
 </template>
-
 <script>
-import index from "./index.js";
-export default index;
+  import index from './index.js';
+  export default index;
 </script>
-<style lang="css" src="./index.css" scoped />

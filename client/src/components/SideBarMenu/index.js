@@ -1,17 +1,12 @@
-import echarts from "echarts";
-import UartConfig from "@/components/UartConfig/index.vue";
-import SideBarMenu from "@/components/SideBarMenu/SidebarMenu.vue";
-import SidebarMenuIcon from "@/components/SideBarMenu/SidebarMenuIcon.vue";
-import { ParticlesBg } from "particles-bg-vue";
+import SideBarMenu from "./SidebarMenu.vue";
+import SidebarMenuIcon from "./SidebarMenuIcon.vue";
 
 export default {
-  name: "MainPage",
+  name: "SideBar",
   props: {},
   components: {
-    ParticlesBg,
     SidebarMenuIcon,
     "sidebar-menu": SideBarMenu,
-    "uart-config": UartConfig,
   },
   data() {
     return {
@@ -113,5 +108,5 @@ export default {
     onToggleCollapse(collapsed) {
       this.min_silder_bar = collapsed;
     },
-  },
+  }
 };
