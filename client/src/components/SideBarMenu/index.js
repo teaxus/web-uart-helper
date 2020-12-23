@@ -1,3 +1,4 @@
+import echarts from "echarts";
 import SideBarMenu from "./SidebarMenu.vue";
 import SidebarMenuIcon from "./SidebarMenuIcon.vue";
 
