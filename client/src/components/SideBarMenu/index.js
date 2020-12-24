@@ -16,12 +16,15 @@ export default {
       },
       set: function(val) {
         localStorage["min_silder_bar"] = val;
+        this.$emit("barMiniChange", !val);
       },
     },
   },
   data() {
     return {
       uart_is_opened: false,
+      open_tx_panel: true,
+      open_rx_panel: true,
       menu: [
         {
           header: true,
@@ -35,15 +38,37 @@ export default {
           slotName: "config",
         },
         {
-          slotName: "sendControl",
+          slotName: "receiverControl",
         },
         {
-          slotName: "receiverControl",
+          slotName: "sendControl",
         },
       ],
     };
   },
+  watch: {
+    uart_is_opened: function(val) {
+      this.$emit("openControl", val);
+    },
+    open_tx_panel: {
+      handler: function(val) {
+        localStorage["open_tx_panel"] = val;
+        this.$emit("TxPanelChange", val);
+      },
+      immediate: true,
+    },
+    open_rx_panel: {
+      handler: function(val) {
+        localStorage["open_rx_panel"] = val;
+        this.$emit("RxPanelChange", val);
+      },
+      immediate: true,
+    },
+  },
   mounted() {
+    this.open_tx_panel = localStorage["open_tx_panel"] != "false";
+    this.open_rx_panel = localStorage["open_rx_panel"] != "false";
+
     this.chartLine = echarts.init(document.getElementById("chartLineBox"));
 
     // 指定图表的配置项和数据
