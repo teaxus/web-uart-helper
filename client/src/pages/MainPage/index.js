@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       uart_is_opened: false,
-      min_silder_bar: false,
+      min_silder_bar: true,
       menu: [
         {
           header: true,

@@ -9,10 +9,19 @@ export default {
     SidebarMenuIcon,
     "sidebar-menu": SideBarMenu,
   },
+  computed: {
+    min_silder_bar: {
+      get: function() {
+        return localStorage["min_silder_bar"] == "true";
+      },
+      set: function(val) {
+        localStorage["min_silder_bar"] = val;
+      },
+    },
+  },
   data() {
     return {
       uart_is_opened: false,
-      min_silder_bar: false,
       menu: [
         {
           header: true,
@@ -109,5 +118,5 @@ export default {
     onToggleCollapse(collapsed) {
       this.min_silder_bar = collapsed;
     },
-  }
+  },
 };

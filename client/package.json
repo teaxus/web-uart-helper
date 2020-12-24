@@ -24,6 +24,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@hscmap/vue-window": "^2.4.2",
     "axios": "^0.20.0",
     "core-js": "3.6.4",
     "echarts": "^4.2.1",

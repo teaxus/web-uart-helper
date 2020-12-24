@@ -5,9 +5,12 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import router from "./router";
 import '@/assets/css/font-awesome/css/font-awesome.min.css'
+import * as VueWindow from '@hscmap/vue-window'
+ 
 
 Vue.use(Vant);
 Vue.use(VueRouter);
+Vue.use(VueWindow)
 Vue.config.productionTip = false;
 
 
