@@ -1,0 +1,17 @@
+.van-dialog{
+    border-radius: 5px;
+    width: 360px;
+}
+.van-popup--center.van-popup--round{
+    border-radius: 5px;
+    width: 360px;
+}
+.config-container{
+    overflow: hidden;
+    padding: 10px;
+}
+.config-title {
+    text-align: center;
+    padding: 6px;
+    font-weight: 700;
+}

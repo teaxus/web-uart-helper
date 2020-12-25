@@ -1,16 +1,26 @@
 export default {
-    name: "UartConfig",
-    data() {
-      return {
-        columns: ['杭州', '宁波', '温州', '绍兴', '湖州', '嘉兴', '金华', '衢州'],
-        show: false
-      };
+  name: "UartConfig",
+  model: { prop: "show", event: "change" },
+  props: {
+    show: Boolean,
+    serialPortConnectConfig: Object,
+  },
+  data() {
+    return {
+      popupShow: false,
+      showDialog: true,
+      columns: ["杭州", "宁波", "温州", "绍兴", "湖州", "嘉兴", "金华", "衢州"],
+    };
+  },
+  computed: {},
+  watch: {
+    popupShow(value) {
+      this.$emit("change", value);
     },
-    computed: {
+    show(val) {
+      this.popupShow = val;
     },
-    mounted() {
-    },
-    methods: {
-
-    }
-  };
+  },
+  mounted() {},
+  methods: {},
+};

@@ -50,16 +50,18 @@
           type="info"
           icon-position="right"
           :disabled="uart_is_opened"
+          @click="configSerialPortConnect"
         >
           <div style="margin-right: 5px">
-            <div><span>端口:xxxxxxxx/波特率:96000</span></div>
+            <div><span>端口:xxxxxxxx/波特率:{{serialPortConnectConfig.baudRate}}</span></div>
             <div>
               <span>校验位:None/数据位:8/停止位:1</span>
             </div>
           </div>
         </van-button>
       </div>
-      <div v-else class="main-func-item-minify">
+      <div v-else class="main-func-item-minify"
+          @click="configSerialPortConnect">
         <sidebar-menu-icon icon="fa fa-wrench" />
       </div>
     </template>

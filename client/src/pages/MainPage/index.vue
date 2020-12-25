@@ -1,7 +1,10 @@
 <template>
   <div class="main-page-container">
-    <particles-bg color="#2a2a2e" type="square" :bg="true" />
-    <side-bar :sideBarStatus.sync="sideBarStatus" @barMiniChange="barMiniChange" @openControl="uartControl"
+    <!-- <particles-bg color="#2a2a2e" type="square" :bg="true" /> -->
+    <side-bar :sideBarStatus.sync="sideBarStatus" 
+      :serialPortConnectConfig="serialPortConnectConfig"
+      @configSerialPortConnect="showSerialPortConnectConfig = true"
+      @barMiniChange="barMiniChange" @openControl="uartControl"
       @TxPanelChange="TxPanelChange" @RxPanelChange="RxPanelChange" />
     <div style="padding-left: 60px;margin-left: 60px;">
 
@@ -42,9 +45,9 @@
       </hsc-window-style-metal>
 
     </div>
-    <!-- <div class="uart-config-container"> 
-      <uart-config ref="UartConfig" />
-    </div> -->
+    <div class="uart-config-container"> 
+      <uart-config ref="UartConfig" v-model="showSerialPortConnectConfig" :serialPortConnectConfig.sync="serialPortConnectConfig"/>
+    </div>
   </div>
 </template>
 

@@ -12,10 +12,19 @@ export default {
   },
   data() {
     return {
+      showSerialPortConnectConfig:false,  // 串口配置弹窗
       sideBarStatus: {
         open_tx_panel: localStorage["open_tx_panel"] != "false",
         open_rx_panel: localStorage["open_rx_panel"] != "false",
         min_silder_bar: localStorage["min_silder_bar"] == "true",
+      },
+      serialPortConnectConfig: {  //串口链接配置
+        connectPortName: "",  //连接端口的名称
+        baudRate: 9700, //波特率
+        dataBits: 8, //数据位
+        parity: "none", //奇偶校验
+        stopBits: 1, //停止位
+        flowControl: false,
       },
       defaultWindowInfo:{
         left: 0,
@@ -105,6 +114,7 @@ export default {
       },1);
       console.log("🚀 ~ file: index.js ~ line 91 ~ barMiniChange ~ isMinifyed", isMinifyed)
     },
+
     uartControl(openCMD) {
       console.log(
         "🚀 ~ file: index.js ~ line 24 ~ uartControl ~ uartControl",

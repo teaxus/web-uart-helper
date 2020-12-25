@@ -5,7 +5,8 @@ import SidebarMenuIcon from "./SidebarMenuIcon.vue";
 export default {
   name: "SideBar",
   props: {
-    sideBarStatus:Object
+    sideBarStatus:Object,
+    serialPortConnectConfig: Object
   },
   components: {
     SidebarMenuIcon,
@@ -136,5 +137,8 @@ export default {
     onToggleCollapse(collapsed) {
       this.sideBarStatus.min_silder_bar = collapsed;
     },
+    configSerialPortConnect(){
+      this.$emit("configSerialPortConnect", true);
+    }
   },
 };

@@ -17,8 +17,7 @@
   },
   "homepage": "https://github.com/teaxus/web-uart-helper#readme",
   "scripts": {
-    "serve_test": "cross-env VUE_APP_Coacl=dev vue-cli-service serve",
-    "serve": "vue-cli-service serve",
+    "serve": "cross-env VUE_APP_Coacl=dev vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:test": "cross-env NODE_ENV=production webpack --progress --hide-modules --config webpack.config.dev.js",
     "lint": "vue-cli-service lint"
