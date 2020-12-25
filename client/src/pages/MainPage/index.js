@@ -12,22 +12,118 @@ export default {
   },
   data() {
     return {
-      isOpen: true,
+      sideBarStatus: {
+        open_tx_panel: localStorage["open_tx_panel"] != "false",
+        open_rx_panel: localStorage["open_rx_panel"] != "false",
+        min_silder_bar: localStorage["min_silder_bar"] == "true",
+      },
+      defaultWindowInfo:{
+        left: 0,
+        top: 0,
+        width: 1000,
+        height: 180,
+      },
+      rxWindowInfo: {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+      },
+      txWindowInfo: {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+      },
     };
   },
-  mounted() {},
+  computed: {
+    windowsLeftOffset() {
+      //窗口偏移
+      return this.sideBarStatus.min_silder_bar ? 60 : 236;
+    },
+  },
+  watch: {
+    rxWindowInfo: {
+      handler: function(val) {
+        localStorage["rxWindowInfo"] = JSON.stringify(val);
+      },
+      deep: true,
+    },
+    txWindowInfo: {
+      handler: function(val) {
+        localStorage["txWindowInfo"] = JSON.stringify(val);
+      },
+      deep: true,
+    },
+  },
+  mounted() {
+    this.initWindows();
+  },
   methods: {
-    barMiniChange(isOpen) {
-        console.log("🚀 ~ file: index.js ~ line 21 ~ barMiniChange ~ isOpen", isOpen)
+    initWindows() {
+      this.defaultWindowInfo.width = window.innerWidth-this.windowsLeftOffset;
+      this.defaultWindowInfo.height = window.innerHeight/2-10;
+      if (localStorage["rxWindowInfo"] == null) {
+        this.rxWindowInfo.left = this.windowsLeftOffset;
+        this.rxWindowInfo.top =  0;
+        this.rxWindowInfo.width = this.defaultWindowInfo.width;
+        this.rxWindowInfo.height = this.defaultWindowInfo.height;
+      } else {
+        let dictRxWindowInfo = JSON.parse(localStorage["rxWindowInfo"])
+        this.rxWindowInfo.left =  (dictRxWindowInfo.left || this.windowsLeftOffset);
+        this.rxWindowInfo.top =  dictRxWindowInfo.top;
+        this.rxWindowInfo.width =  dictRxWindowInfo.width;
+        this.rxWindowInfo.height =  dictRxWindowInfo.height;
+      }
+      if (localStorage["txWindowInfo"] == null) {
+        this.txWindowInfo.left = this.windowsLeftOffset;
+        this.txWindowInfo.top = this.rxWindowInfo.top + this.rxWindowInfo.height + 40;
+        this.txWindowInfo.width = this.defaultWindowInfo.width;
+        this.txWindowInfo.height = this.defaultWindowInfo.height;
+      } else {
+        let dictTxWindowInfo = JSON.parse(localStorage["txWindowInfo"])
+        this.txWindowInfo.left =  (dictTxWindowInfo.left || this.windowsLeftOffset);
+        this.txWindowInfo.top =  dictTxWindowInfo.top;
+        this.txWindowInfo.width =  dictTxWindowInfo.width;
+        this.txWindowInfo.height =  dictTxWindowInfo.height;
+      }
+    },
+    barMiniChange(isMinifyed) {
+      if(isMinifyed){
+        this.rxWindowInfo.width += 176;
+        this.txWindowInfo.width += 176;
+      }
+      else{
+        this.rxWindowInfo.width -= 176;
+        this.txWindowInfo.width -= 176;
+      }
+      let _this = this;
+      setTimeout(function(){
+        _this.rxWindowInfo.left = _this.windowsLeftOffset;
+        _this.txWindowInfo.left = _this.windowsLeftOffset;
+      },1);
+      console.log("🚀 ~ file: index.js ~ line 91 ~ barMiniChange ~ isMinifyed", isMinifyed)
     },
     uartControl(openCMD) {
-        console.log("🚀 ~ file: index.js ~ line 24 ~ uartControl ~ uartControl", openCMD)
+      console.log(
+        "🚀 ~ file: index.js ~ line 24 ~ uartControl ~ uartControl",
+        openCMD
+      );
     },
     TxPanelChange(isOpen) {
-        console.log("🚀 ~ file: index.js ~ line 27 ~ TxPanelChange ~ isOpen", isOpen)
+      this.sideBarStatus.open_tx_panel = isOpen;
+      console.log(
+        "🚀 ~ file: index.js ~ line 27 ~ TxPanelChange ~ isOpen",
+        isOpen
+      );
     },
     RxPanelChange(isOpen) {
-        console.log("🚀 ~ file: index.js ~ line 30 ~ RxPanelChange ~ isOpen", isOpen)
-    }
+      this.sideBarStatus.open_rx_panel = isOpen;
+      console.log(
+        "🚀 ~ file: index.js ~ line 30 ~ RxPanelChange ~ isOpen",
+        isOpen
+      );
+    },
   },
 };

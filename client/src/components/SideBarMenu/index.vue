@@ -1,6 +1,6 @@
 <template>
   <sidebar-menu
-    :collapsed="min_silder_bar"
+    :collapsed="sideBarStatus.min_silder_bar"
     :menu="menu"
     @toggle-collapse="onToggleCollapse"
     width="226px"
@@ -71,7 +71,7 @@
           size="small"
           icon="x fa fa-paper-plane"
           :disabled="uart_is_opened"
-          @click="open_rx_panel = true"
+          @click="sideBarStatus.open_rx_panel = true"
         >
           <div style="margin-left: 5px">
             <div>打开发送面板</div>
@@ -93,8 +93,8 @@
       <div
         v-else
         class="main-func-item-minify"
-        @click="open_tx_panel = !open_tx_panel"
-        :style="open_tx_panel ? 'color:#07c160':''"
+        @click="sideBarStatus.open_tx_panel = !sideBarStatus.open_tx_panel"
+        :style="sideBarStatus.open_tx_panel ? 'color:#07c160':''"
       >
         <sidebar-menu-icon icon="fa fa-paper-plane" />
       </div>
@@ -107,7 +107,7 @@
           size="small"
           icon="x fa fa-pencil-square-o"
           :disabled="uart_is_opened"
-          @click="open_tx_panel = true"
+          @click="sideBarStatus.open_tx_panel = true"
         >
           <div style="margin-left: 5px">
             <div>打开接收面板</div>
@@ -129,8 +129,8 @@
       <div
         v-else
         class="main-func-item-minify"
-        @click="open_rx_panel = !open_rx_panel"
-        :style="open_rx_panel ? 'color:#07c160':''"
+        @click="sideBarStatus.open_rx_panel = !sideBarStatus.open_rx_panel"
+        :style="sideBarStatus.open_rx_panel ? 'color:#07c160':''"
       >
         <sidebar-menu-icon icon="fa fa-pencil-square-o" />
       </div>

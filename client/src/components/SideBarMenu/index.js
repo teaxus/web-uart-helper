@@ -4,27 +4,16 @@ import SidebarMenuIcon from "./SidebarMenuIcon.vue";
 
 export default {
   name: "SideBar",
-  props: {},
+  props: {
+    sideBarStatus:Object
+  },
   components: {
     SidebarMenuIcon,
     "sidebar-menu": SideBarMenu,
   },
-  computed: {
-    min_silder_bar: {
-      get: function() {
-        return localStorage["min_silder_bar"] == "true";
-      },
-      set: function(val) {
-        localStorage["min_silder_bar"] = val;
-        this.$emit("barMiniChange", !val);
-      },
-    },
-  },
   data() {
     return {
       uart_is_opened: false,
-      open_tx_panel: true,
-      open_rx_panel: true,
       menu: [
         {
           header: true,
@@ -50,14 +39,23 @@ export default {
     uart_is_opened: function(val) {
       this.$emit("openControl", val);
     },
-    open_tx_panel: {
+    "sideBarStatus.min_silder_bar": {
       handler: function(val) {
-        localStorage["open_tx_panel"] = val;
-        this.$emit("TxPanelChange", val);
+        localStorage["min_silder_bar"] = val;
+        this.$emit("barMiniChange", val);
+        this.sideBarStatus.min_silder_bar = val;
       },
       immediate: true,
     },
-    open_rx_panel: {
+    "sideBarStatus.open_tx_panel": {
+      handler: function(val) {
+        localStorage["open_tx_panel"] = val;
+        this.$emit("TxPanelChange", val);
+        this.sideBarStatus.txWindowIsOpen = val;
+      },
+      immediate: true,
+    },
+    "sideBarStatus.open_rx_panel": {
       handler: function(val) {
         localStorage["open_rx_panel"] = val;
         this.$emit("RxPanelChange", val);
@@ -66,9 +64,6 @@ export default {
     },
   },
   mounted() {
-    this.open_tx_panel = localStorage["open_tx_panel"] != "false";
-    this.open_rx_panel = localStorage["open_rx_panel"] != "false";
-
     this.chartLine = echarts.init(document.getElementById("chartLineBox"));
 
     // 指定图表的配置项和数据
@@ -101,7 +96,6 @@ export default {
       series: [
         {
           name: "已发送",
-          // data:  [220, 232, 150, 80, 70, 110, 130, 200, 150, 80, 201, 234, 290, 230, 220],
           data: [],
           type: "line", // 类型为折线图
           lineStyle: {
@@ -113,7 +107,6 @@ export default {
         },
         {
           name: "已接收",
-          // data: [120, 200, 150, 80, 70, 110, 130, 200, 150, 80, 70, 110, 130, 200, 150, 80, 70, 110, 130, 200, 150, 80, 70, 110, 130, 200, 150, 80, 70, 110, 130],
           data: [],
           type: "line",
           lineStyle: {
@@ -141,7 +134,7 @@ export default {
   },
   methods: {
     onToggleCollapse(collapsed) {
-      this.min_silder_bar = collapsed;
+      this.sideBarStatus.min_silder_bar = collapsed;
     },
   },
 };
