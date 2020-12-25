@@ -46,8 +46,9 @@
         <van-button
           style="text-align: left;height: 41px;width: 100%;"
           size="small"
+          class="black-text"
+          color="rgb(249,217,70)"
           icon="x fa fa-wrench"
-          type="info"
           icon-position="right"
           :disabled="uart_is_opened"
           @click="configSerialPortConnect"
@@ -94,17 +95,18 @@
           style="text-align: left"
           size="small"
           icon="x fa fa-paper-plane"
-          @click="sideBarStatus.open_rx_panel = true"
+          @click="sideBarStatus.open_rx_panel = !sideBarStatus.open_rx_panel"
         >
           <div style="margin-left: 5px">
-            <div>打开发送面板</div>
+            <div>{{sideBarStatus.open_rx_panel ? '关闭':'打开'}}发送面板</div>
           </div>
         </van-button>
         <van-button
           style="text-align: left; float: right; margin-left: auto"
           size="small"
           icon="x fa fa-wrench"
-          type="info"
+          class="black-text"
+          color="rgb(249,217,70)"
           icon-position="right"
           :disabled="uart_is_opened"
         >
@@ -129,17 +131,18 @@
           style="text-align: left"
           size="small"
           icon="x fa fa-pencil-square-o"
-          @click="sideBarStatus.open_tx_panel = true"
+          @click="sideBarStatus.open_tx_panel = !sideBarStatus.open_tx_panel"
         >
           <div style="margin-left: 5px">
-            <div>打开接收面板</div>
+            <div>{{sideBarStatus.open_tx_panel ? '关闭':'打开'}}接收面板</div>
           </div>
         </van-button>
         <van-button
           style="text-align: left; float: right; margin-left: auto"
           size="small"
           icon="x fa fa-wrench"
-          type="info"
+          class="black-text"
+          color="rgb(249,217,70)"
           icon-position="right"
           :disabled="uart_is_opened"
         >
