@@ -21,8 +21,8 @@ export default {
       serialPortConnectConfig: {  //串口链接配置
         connectPortName: "",  //连接端口的名称
         baudRate: 9700, //波特率
-        dataBits: 8, //数据位
         parity: "none", //奇偶校验
+        dataBits: 8, //数据位
         stopBits: 1, //停止位
         flowControl: false,
       },
@@ -65,9 +65,16 @@ export default {
       },
       deep: true,
     },
+    serialPortConnectConfig: {
+      handler: function(val) {
+        localStorage["serialPortConnectConfig"] = JSON.stringify(val);
+      },
+      deep: true,
+    },
   },
   mounted() {
     this.initWindows();
+    this.initSerialPortConnectConfig();
   },
   methods: {
     initWindows() {
@@ -96,6 +103,12 @@ export default {
         this.txWindowInfo.top =  dictTxWindowInfo.top;
         this.txWindowInfo.width =  dictTxWindowInfo.width;
         this.txWindowInfo.height =  dictTxWindowInfo.height;
+      }
+    },
+    initSerialPortConnectConfig(){
+      let serialPortConnectConfig = localStorage["serialPortConnectConfig"];
+      if(serialPortConnectConfig != null){
+        this.serialPortConnectConfig = JSON.parse(serialPortConnectConfig);
       }
     },
     barMiniChange(isMinifyed) {

@@ -44,7 +44,7 @@
     <template slot="config" slot-scope="scope">
       <div v-if="scope.show" class="main-func-item">
         <van-button
-          style="text-align: left"
+          style="text-align: left;height: 41px;width: 100%;"
           size="small"
           icon="x fa fa-wrench"
           type="info"
@@ -53,15 +53,37 @@
           @click="configSerialPortConnect"
         >
           <div style="margin-right: 5px">
-            <div><span>端口:xxxxxxxx/波特率:{{serialPortConnectConfig.baudRate}}</span></div>
             <div>
-              <span>校验位:None/数据位:8/停止位:1</span>
+              <span
+                >端口:<span
+                  style="
+                    max-width: 62px;
+                    overflow: hidden;
+                    display: inline-block;
+                    transform: translateY(2.5px);
+                    
+                  "
+                  >{{ serialPortConnectConfig.connectPortName || '未选择' }}</span
+                >
+                <span style="margin-left: 4px;">/</span>
+                波特率:{{ serialPortConnectConfig.baudRate }}</span
+              >
+            </div>
+            <div>
+              <span
+                >校验位:{{ serialPortConnectConfig.parity }}/数据位:{{
+                  serialPortConnectConfig.dataBits
+                }}/停止位:{{ serialPortConnectConfig.stopBits }}</span
+              >
             </div>
           </div>
         </van-button>
       </div>
-      <div v-else class="main-func-item-minify"
-          @click="configSerialPortConnect">
+      <div
+        v-else
+        class="main-func-item-minify"
+        @click="configSerialPortConnect"
+      >
         <sidebar-menu-icon icon="fa fa-wrench" />
       </div>
     </template>
@@ -69,10 +91,9 @@
       <div v-if="scope.show" class="main-func-item">
         <van-button
           color="rgb(7, 193, 96)"
-          style="text-align: left;"
+          style="text-align: left"
           size="small"
           icon="x fa fa-paper-plane"
-          :disabled="uart_is_opened"
           @click="sideBarStatus.open_rx_panel = true"
         >
           <div style="margin-left: 5px">
@@ -96,7 +117,7 @@
         v-else
         class="main-func-item-minify"
         @click="sideBarStatus.open_tx_panel = !sideBarStatus.open_tx_panel"
-        :style="sideBarStatus.open_tx_panel ? 'color:#07c160':''"
+        :style="sideBarStatus.open_tx_panel ? 'color:#07c160' : ''"
       >
         <sidebar-menu-icon icon="fa fa-paper-plane" />
       </div>
@@ -105,10 +126,9 @@
       <div v-if="scope.show" class="main-func-item">
         <van-button
           color="rgb(7, 193, 96)"
-          style="text-align: left;"
+          style="text-align: left"
           size="small"
           icon="x fa fa-pencil-square-o"
-          :disabled="uart_is_opened"
           @click="sideBarStatus.open_tx_panel = true"
         >
           <div style="margin-left: 5px">
@@ -132,7 +152,7 @@
         v-else
         class="main-func-item-minify"
         @click="sideBarStatus.open_rx_panel = !sideBarStatus.open_rx_panel"
-        :style="sideBarStatus.open_rx_panel ? 'color:#07c160':''"
+        :style="sideBarStatus.open_rx_panel ? 'color:#07c160' : ''"
       >
         <sidebar-menu-icon icon="fa fa-pencil-square-o" />
       </div>
