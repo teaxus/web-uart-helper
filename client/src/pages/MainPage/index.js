@@ -1,5 +1,7 @@
 import UartConfig from "@/components/UartConfig/index.vue";
 import SideBar from "@/components/SideBarMenu/index.vue";
+import TXPanel from "@/components/TXPanel/index.vue";
+import RXPanel from "@/components/RXPanel/index.vue";
 import { ParticlesBg } from "particles-bg-vue";
 
 export default {
@@ -7,6 +9,8 @@ export default {
   props: {},
   components: {
     ParticlesBg,
+    "tx-planel": TXPanel,
+    "rx-planel": RXPanel,
     "side-bar": SideBar,
     "uart-config": UartConfig,
   },

@@ -1,7 +1,7 @@
 <template>
-  <div>
-      tx
-  </div>
+    <div>
+
+    </div>
 </template>
 <script>
 import index from "./index.js";

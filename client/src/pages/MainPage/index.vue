@@ -15,6 +15,9 @@
           :width.sync="rxWindowInfo.width" :height.sync="rxWindowInfo.height"
           :isScrollable="true" :resizable="true"
           :minWidth="50" :minHeight="50">
+          <div>
+            <rx-planel />
+          </div>
           <div style="padding:10px">
             1、10/16进制转换，文字转换<br/>
             2、清空<br/>
@@ -32,6 +35,9 @@
           :width.sync="txWindowInfo.width" :height.sync="txWindowInfo.height"
           :isScrollable="true" :resizable="true"
           :minWidth="50" :minHeight="50">
+          <div>
+            <tx-planel />
+          </div>
           <div>
             1、10/16进制，字符串发送<br/>
             2、自动发送，自动发送周期<br/>

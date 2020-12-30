@@ -1,0 +1,9 @@
+.table-header{
+  width: 90px;
+  font-weight: bold;
+  text-align: start;
+  margin-right: 5px;
+}
+.table-data{
+  margin-right: 5px;
+}
