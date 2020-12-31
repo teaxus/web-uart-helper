@@ -1,5 +1,6 @@
 const WebSocketServer = require("ws").Server;
 const SerialPort = require("serialport");
+const configHelper = require("./configHelper.js");
 // const http = require("http");
 function mkJsonStr(obj) {
   let return_json_str = JSON.stringify(obj);
@@ -12,7 +13,6 @@ wss = new WebSocketServer({ port: 8181 });
 wss.on("connection", function (ws) {
   console.log("client connected");
   ws.send(mkJsonStr({ code: 0, msg: "client connected" }));
-  let count = 0;
   setInterval(function () {
     ws.send(
       mkJsonStr({
