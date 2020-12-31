@@ -3,7 +3,6 @@ import SideBar from "@/components/SideBarMenu/index.vue";
 import TXPanel from "@/components/TXPanel/index.vue";
 import RXPanel from "@/components/RXPanel/index.vue";
 import { ParticlesBg } from "particles-bg-vue";
-import uartServer from '@/Tools/uartServer.js';
 
 export default {
   name: "MainPage",
@@ -48,8 +47,7 @@ export default {
         top: 0,
         width: 0,
         height: 0,
-      },
-      arrSerialPort: []
+      }
     };
   },
   computed: {
@@ -81,12 +79,6 @@ export default {
   mounted() {
     this.initWindows();
     this.initSerialPortConnectConfig();
-    uartServer.API.getPort();
-    uartServer.bindValWithObj(this,"arrSerialPort","updateDriveList")
-    let _this = this;
-    setTimeout(function(){
-      console.log("🚀 ~ file: index.js ~ line 89 ~ setTimeout ~ _this.arrSerialPort", _this.arrSerialPort)
-    },1000)
     
   },
   methods: {

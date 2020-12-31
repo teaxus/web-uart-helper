@@ -2,7 +2,7 @@ import socketTools from "@/Tools/socketTools.js";
 let arrBindMap = [];
 
 function _keepalive(data) {
-  console.log("🚀 ~ file: uartServer.js ~ line 4 ~ _keepalive ~ data", data);
+  // console.log("🚀 ~ file: uartServer.js ~ line 4 ~ _keepalive ~ data", data);
 }
 
 function _msgProcess(data) {
