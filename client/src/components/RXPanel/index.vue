@@ -5,13 +5,14 @@
         <thead>
           <tr>
             <th>
-              <div class="table-header">行列</div>
+              <div class="table-header"></div>
             </th>
             <th v-for="item in headRow" :key="item">
               <div>
                 {{prefixZero(item.toString(16).toUpperCase(),2)}}
               </div>
             </th>
+            <th />
           </tr>
         </thead>
         <tbody>
@@ -20,7 +21,10 @@
               <div class="table-header">{{prefixZero(i.toString(16).toUpperCase(),8)}}:</div>
             </td>
             <td v-for="(data,k) in item" :key="i+k">
-              <div class="table-data">{{data}}</div>
+              <div class="table-data">{{data == "" ? "":data.charCodeAt().toString(16).toUpperCase()}}</div>
+            </td>
+            <td>
+              <div>{{item.join("")}}</div>
             </td>
           </tr>
         </tbody>
