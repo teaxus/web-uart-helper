@@ -24,6 +24,9 @@ export default {
     }
 
     this.headRow = makeArry(1, this.rowSize);
+
+
+
   },
   methods: {
     prefixZero(num, n) {
