@@ -1,9 +1,11 @@
+.table-contain{
+  font-size: 12px;
+}
 .table-header{
-  width: 90px;
+  width: 75px;
   font-weight: bold;
   text-align: start;
-  margin-right: 5px;
 }
-.table-data{
-  margin-right: 5px;
+.table-data-tail{
+  margin-left:10px;
 }

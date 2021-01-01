@@ -9,7 +9,7 @@ export default {
         'import.{.makeArry,.arrTrans.}.from."@/Tools/arradjflksdjflsskdjflksdjflsdfflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdfkdjlskdjflksdjflsdf',
       headRow: [],
       showDataArrs: [],
-      rowSize: 0x0f, //  每一行的大小
+      rowSize: 0x1A, //  每一行的大小
     };
   },
   computed: {},

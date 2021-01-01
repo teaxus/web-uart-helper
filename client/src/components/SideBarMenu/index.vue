@@ -14,7 +14,7 @@
         class="main-func-item"
       >
         <van-switch
-          v-model="uart_is_opened"
+          v-model="uart_is_opened" @change="openUartStateDidChange"
           active-color="#07c160"
           inactive-color="#ee0a24"
         />
@@ -28,16 +28,11 @@
       <div
         :style="!scope.show ? 'display: flex' : 'display: none'"
         class="main-func-item-minify"
-        @click="uart_is_opened = !uart_is_opened"
+        @click="openUartStateDidChange(!uart_is_opened)"
       >
         <sidebar-menu-icon
-          v-if="uart_is_opened == false"
           icon="fa fa-power-off"
-        />
-        <sidebar-menu-icon
-          v-else
-          icon="fa fa-power-off"
-          style="color: rgb(7, 193, 96)"
+          :style="uart_is_opened == false ? '':'color: rgb(7, 193, 96)'"
         />
       </div>
     </template>

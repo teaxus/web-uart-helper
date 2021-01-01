@@ -27,7 +27,6 @@ export default {
     },
   },
   mounted() {
-    uartServer.API.getPort();
     uartServer.bindValWithObj(this, "arrSerialPort", "updateDriveList");
   },
   methods: {
@@ -37,8 +36,11 @@ export default {
       switch (type) {
         case "port":
           this.selectTitle = "选择端口";
-          this.selectData = this.arrSerialPort.filter(item => {return item.productId != null}).map(item => {return item.path});
-          console.log(this.arrSerialPort);
+          uartServer.API.getPort();
+          setTimeout(()=>{
+            this.selectData = this.arrSerialPort.filter(item => {return item.productId != null}).map(item => {return item.path});
+            console.log(this.arrSerialPort);
+          },100)
         break;
         case "baudRate":
           this.selectTitle = "选择波特率";

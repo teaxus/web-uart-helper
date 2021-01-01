@@ -3,6 +3,7 @@ import SideBar from "@/components/SideBarMenu/index.vue";
 import TXPanel from "@/components/TXPanel/index.vue";
 import RXPanel from "@/components/RXPanel/index.vue";
 import { ParticlesBg } from "particles-bg-vue";
+import uartServer from '@/Tools/uartServer.js';
 
 export default {
   name: "MainPage",
@@ -134,6 +135,12 @@ export default {
     },
 
     uartControl(openCMD) {
+      if(openCMD){
+        uartServer.API.openPort(this.serialPortConnectConfig);
+      }
+      else{
+        uartServer.API.shutdownUart();
+      }
       console.log(
         "🚀 ~ file: index.js ~ line 24 ~ uartControl ~ uartControl",
         openCMD

@@ -1,6 +1,7 @@
 import echarts from "echarts";
 import SideBarMenu from "./SidebarMenu.vue";
 import SidebarMenuIcon from "./SidebarMenuIcon.vue";
+import uartServer from '@/Tools/uartServer.js';
 
 export default {
   name: "SideBar",
@@ -37,9 +38,6 @@ export default {
     };
   },
   watch: {
-    uart_is_opened: function(val) {
-      this.$emit("openControl", val);
-    },
     "sideBarStatus.min_silder_bar": {
       handler: function(val) {
         localStorage["min_silder_bar"] = val;
@@ -65,6 +63,7 @@ export default {
     },
   },
   mounted() {
+    uartServer.bindValWithObj(this,"uart_is_opened","keepalive","state.serialOpened")
     this.chartLine = echarts.init(document.getElementById("chartLineBox"));
 
     // 指定图表的配置项和数据
@@ -134,6 +133,9 @@ export default {
     }, 1000);
   },
   methods: {
+    openUartStateDidChange(val){
+      this.$emit("openControl", val);
+    },
     onToggleCollapse(collapsed) {
       this.sideBarStatus.min_silder_bar = collapsed;
     },

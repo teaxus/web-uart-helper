@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="data-container">
-      <table>
+      <table class="table-contain">
         <thead>
           <tr>
             <th>
@@ -24,7 +24,7 @@
               <div class="table-data">{{data == "" ? "":data.charCodeAt().toString(16).toUpperCase()}}</div>
             </td>
             <td>
-              <div>{{item.join("")}}</div>
+              <div class="table-data-tail">{{item.join("")}}</div>
             </td>
           </tr>
         </tbody>
