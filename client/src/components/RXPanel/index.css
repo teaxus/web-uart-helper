@@ -1,3 +1,16 @@
+
+.show-type-select-container{
+  margin-bottom: 10px;
+}
+.show-type-select-item{
+  display: inline-block;
+  padding: 10px;
+}
+.show-type-select-item-select{
+  font-weight: bold;
+  font-size: 18px;
+}
+
 .table-contain{
   font-size: 12px;
 }
@@ -9,3 +22,4 @@
 .table-data-tail{
   margin-left:10px;
 }
+

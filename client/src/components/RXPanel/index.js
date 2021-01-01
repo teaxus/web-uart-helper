@@ -10,6 +10,7 @@ export default {
       headRow: [],
       showDataArrs: [],
       rowSize: 0x1a, //  每一行的大小
+      showType: 1, //  默认1（16进制和文字同时显示），2单纯显示16进制数据，3单纯显示文字
     };
   },
   computed: {},
