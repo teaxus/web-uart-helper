@@ -4,7 +4,8 @@ let ondata_handle = [];
 
 function _rxData(data) {
   ondata_handle.forEach((cb) => {
-    cb(data.toString("ascii"));
+    let rxStr = data.toString("ascii");
+    cb(rxStr);
   });
 }
 

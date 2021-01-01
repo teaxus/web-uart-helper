@@ -1,19 +1,25 @@
 import socketTools from "@/Tools/socketTools.js";
 let arrBindMap = [];
-
-function _keepalive(data) {
-  // console.log("keepalive ~ data", data);
-}
+let arrGetMsgHandle = [];
 
 function _msgProcess(data) {
   if (data.code == 0 && data.actToClient != null) {
-    if (data.actToClient == "keepalive") {
-      _keepalive(data.data);
-    }
     for (let index in arrBindMap) {
       let dictBindObj = arrBindMap[index];
       if (dictBindObj.act == data.actToClient) {
-        eval(`dictBindObj.obj.${dictBindObj.keyPath} = data.data${dictBindObj.srcDataKeyPath == null ? '':'.'+dictBindObj.srcDataKeyPath}`);
+        eval(
+          `dictBindObj.obj.${dictBindObj.keyPath} = data.data${
+            dictBindObj.srcDataKeyPath == null
+              ? ""
+              : "." + dictBindObj.srcDataKeyPath
+          }`
+        );
+      }
+    }
+    for(let index in arrGetMsgHandle){
+      let dictHandle = arrGetMsgHandle[index];
+      if(dictHandle.act == data.actToClient){
+        dictHandle.callback(data.data);
       }
     }
   }
@@ -41,6 +47,10 @@ let API = {
   shutdownUart() {
     _makeSendData("shutdownUart");
   },
+  // 获取接收数据记录
+  getRxRecord() {
+    _makeSendData("getRxRecord");
+  },
 };
 
 /**
@@ -64,11 +74,21 @@ function startup(host) {
  */
 function bindValWithObj(obj, keyPath, act, srcDataKeyPath) {
   let dictPush = { act, obj, keyPath };
-  if(srcDataKeyPath != null){
+  if (srcDataKeyPath != null) {
     dictPush.srcDataKeyPath = srcDataKeyPath;
   }
   arrBindMap.push(dictPush);
 }
 
-let exportObj = { startup, bindValWithObj, API };
+
+/**
+ * 添加处理uart服务端的回调.
+ * @param {String} act 在哪个act触发绑定.
+ * @param {function} callback 回调方法.
+ */
+function addCallbackWithAct(act, callback) {
+  arrGetMsgHandle.push({ act, callback: callback });
+}
+
+let exportObj = { startup, bindValWithObj, addCallbackWithAct, API };
 export default exportObj;

@@ -14,7 +14,8 @@
         class="main-func-item"
       >
         <van-switch
-          v-model="uart_is_opened" @change="openUartStateDidChange"
+          v-model="uart_is_opened"
+          @change="openUartStateDidChange"
           active-color="#07c160"
           inactive-color="#ee0a24"
         />
@@ -32,14 +33,14 @@
       >
         <sidebar-menu-icon
           icon="fa fa-power-off"
-          :style="uart_is_opened == false ? '':'color: rgb(7, 193, 96)'"
+          :style="uart_is_opened == false ? '' : 'color: rgb(7, 193, 96)'"
         />
       </div>
     </template>
     <template slot="config" slot-scope="scope">
       <div v-if="scope.show" class="main-func-item">
         <van-button
-          style="text-align: left;height: 41px;width: 100%;"
+          style="text-align: left; height: 41px; width: 100%"
           size="small"
           class="black-text"
           color="rgb(249,217,70)"
@@ -57,11 +58,12 @@
                     overflow: hidden;
                     display: inline-block;
                     transform: translateY(2.5px);
-                    
                   "
-                  >{{ serialPortConnectConfig.connectPortName || '未选择' }}</span
+                  >{{
+                    serialPortConnectConfig.connectPortName || "未选择"
+                  }}</span
                 >
-                <span style="margin-left: 4px;">/</span>
+                <span style="margin-left: 4px">/</span>
                 波特率:{{ serialPortConnectConfig.baudRate }}</span
               >
             </div>
@@ -93,7 +95,9 @@
           @click="sideBarStatus.open_rx_panel = !sideBarStatus.open_rx_panel"
         >
           <div style="margin-left: 5px">
-            <div>{{sideBarStatus.open_rx_panel ? '关闭':'打开'}}发送面板</div>
+            <div>
+              {{ sideBarStatus.open_rx_panel ? "关闭" : "打开" }}发送面板
+            </div>
           </div>
         </van-button>
         <van-button
@@ -129,7 +133,9 @@
           @click="sideBarStatus.open_tx_panel = !sideBarStatus.open_tx_panel"
         >
           <div style="margin-left: 5px">
-            <div>{{sideBarStatus.open_tx_panel ? '关闭':'打开'}}接收面板</div>
+            <div>
+              {{ sideBarStatus.open_tx_panel ? "关闭" : "打开" }}接收面板
+            </div>
           </div>
         </van-button>
         <van-button

@@ -21,7 +21,7 @@
               <div class="table-header">{{prefixZero(i.toString(16).toUpperCase(),8)}}:</div>
             </td>
             <td v-for="(data,k) in item" :key="i+k">
-              <div class="table-data">{{data == "" ? "":data.charCodeAt().toString(16).toUpperCase()}}</div>
+              <div class="table-data">{{data == "" ? "":prefixZero(data.charCodeAt().toString(16).toUpperCase(),2)}}</div>
             </td>
             <td>
               <div class="table-data-tail">{{item.join("")}}</div>
