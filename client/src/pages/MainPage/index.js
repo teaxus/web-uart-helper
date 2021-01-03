@@ -5,6 +5,7 @@ import RXPanel from "@/components/RXPanel/index.vue";
 import { ParticlesBg } from "particles-bg-vue";
 import uartServer from "@/Tools/uartServer.js";
 import { Notify } from 'vant';
+import * as VueWindow from '@hscmap/vue-window'
 
 export default {
   name: "MainPage",
@@ -18,6 +19,7 @@ export default {
   },
   data() {
     return {
+      StyleWhite:VueWindow.StyleWhite,
       showSerialPortConnectConfig: false, // 串口配置弹窗
       sideBarStatus: {
         open_tx_panel: localStorage["open_tx_panel"] != "false",
