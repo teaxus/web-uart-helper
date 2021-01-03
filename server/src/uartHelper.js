@@ -63,7 +63,7 @@ let exportObj = {
     if(serialPort == null){
       return false;
     }
-    return serialPort.isClose == false;
+    return serialPort.closing == false;
   }
 };
 module.exports = exportObj;
