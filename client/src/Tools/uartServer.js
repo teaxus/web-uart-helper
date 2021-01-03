@@ -16,11 +16,11 @@ function _msgProcess(data) {
         );
       }
     }
-    for(let index in arrGetMsgHandle){
-      let dictHandle = arrGetMsgHandle[index];
-      if(dictHandle.act == data.actToClient){
-        dictHandle.callback(data.data);
-      }
+  }
+  for (let index in arrGetMsgHandle) {
+    let dictHandle = arrGetMsgHandle[index];
+    if (dictHandle.act == data.actToClient) {
+      dictHandle.callback(data.code, data.data);
     }
   }
 }
@@ -78,8 +78,8 @@ function bindValWithObj(obj, keyPath, act, srcDataKeyPath) {
     dictPush.srcDataKeyPath = srcDataKeyPath;
   }
   arrBindMap.push(dictPush);
+  return exportObj;
 }
-
 
 /**
  * 添加处理uart服务端的回调.
@@ -88,6 +88,7 @@ function bindValWithObj(obj, keyPath, act, srcDataKeyPath) {
  */
 function addCallbackWithAct(act, callback) {
   arrGetMsgHandle.push({ act, callback: callback });
+  return exportObj;
 }
 
 let exportObj = { startup, bindValWithObj, addCallbackWithAct, API };

@@ -15,9 +15,9 @@ export default {
   },
   computed: {},
   watch: {
-    rxData:function(newVal){
+    rxData: function(newVal) {
       this.upRxData();
-    }
+    },
   },
   mounted() {
     let _this = this;
@@ -25,8 +25,8 @@ export default {
     // this.rxData = this.test_str;
 
     uartServer.API.getRxRecord();
-    uartServer.bindValWithObj(this,"rxData","rxRecord")
-    uartServer.addCallbackWithAct("rxData", function(data) {
+    uartServer.bindValWithObj(this, "rxData", "rxRecord");
+    uartServer.addCallbackWithAct("rxData", function(code, data) {
       _this.rxData += data.rxData;
     });
   },

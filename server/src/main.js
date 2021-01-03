@@ -12,7 +12,6 @@ function mkJsonStr(obj) {
   let return_json_str = JSON.stringify(obj);
   return return_json_str;
 }
-
 wss = new WebSocketServer({ port: 8181 });
 wss.on("connection", function (ws) {
   // 发送方法
@@ -25,6 +24,11 @@ wss.on("connection", function (ws) {
       })
     );
   }
+
+  function sendError(code, showMsg){
+    sendData(code, "showError", {showMsg});
+  }
+  
   console.log("client connected");
   ws.send(mkJsonStr({ code: 0, msg: "client connected" }));
   setInterval(function () {
@@ -64,7 +68,9 @@ wss.on("connection", function (ws) {
         sendData(0, "rxRecord", fs.existsSync(constVal.rxRecordPath) ? fs.readFileSync(constVal.rxRecordPath, "ASCII"):"");
         break;
       case "openPort":
-        uartHelper.openPort(dictRequest.data);
+        uartHelper.openPort(dictRequest.data,function(error){
+          sendError(1,"请选择正确的端口");
+        });
         break;
       case "shutdownUart":
         uartHelper.closePort();

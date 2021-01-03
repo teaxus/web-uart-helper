@@ -7,6 +7,7 @@ import router from "./router";
 import '@/assets/css/font-awesome/css/font-awesome.min.css';
 import * as VueWindow from '@hscmap/vue-window';
 import uartServer from '@/Tools/uartServer.js';
+import './plugins/element.js'
 
 Vue.use(Vant);
 Vue.use(VueRouter);
@@ -15,7 +16,6 @@ Vue.config.productionTip = false;
 
 
 uartServer.startup("localhost:8181");
-
 new Vue({
   router,
   render: h => h(App),
