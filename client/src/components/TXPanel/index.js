@@ -4,11 +4,22 @@ export default {
   name: "TXPanel",
   data() {
     return {
-      inputData: "",
+      dictTrueData:{  // 真正的数据
+        "1":"","3":""
+      },
       inputType: 3, //  默认1（16进制和文字同时显示），3单纯显示文字
     };
   },
-  computed: {},
+  computed: {
+    inputData:{
+      get:function(){
+        return this.dictTrueData[this.inputType];
+      },
+      set:function(val){
+        return this.dictTrueData[this.inputType] = val;
+      }
+    }
+  },
   watch: {},
   mounted() {},
   methods: {
@@ -25,9 +36,14 @@ export default {
             Notify({ type: "warning", message: "请输入正确格式的16进制数据" });
           }
         }
+        this.inputData = this.inputData.toUpperCase();
       }
     },
     checkTxRecord() {},
     clearTxCache() {},
+    // 发送数据
+    sendData(){
+
+    }
   },
 };
