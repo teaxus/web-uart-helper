@@ -161,6 +161,22 @@
         <sidebar-menu-icon icon="fa fa-pencil-square-o" />
       </div>
     </template>
+    <template slot="upperComputerIDE" slot-scope="scope">
+      <div v-if="scope.show" class="main-func-item">
+        <van-button
+          color="rgb(7, 193, 96)"
+          style="text-align: left"
+          size="small"
+          icon="x fa fa-pencil-square-o"
+        >
+          <div style="margin-left: 5px">
+            <div>
+              打开上位机开发工具
+            </div>
+          </div>
+        </van-button>
+      </div>
+    </template>
   </sidebar-menu>
 </template>
 <script>

@@ -34,6 +34,9 @@ export default {
         {
           slotName: "sendControl",
         },
+        {
+          slotName: "upperComputerIDE", // 上位机集成开发工具
+        },
       ],
     };
   },

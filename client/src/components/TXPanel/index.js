@@ -4,21 +4,23 @@ export default {
   name: "TXPanel",
   data() {
     return {
-      dictTrueData:{  // 真正的数据
-        "1":"","3":""
+      dictTrueData: {
+        // 真正的数据
+        "1": "",
+        "3": "",
       },
       inputType: 3, //  默认1（16进制和文字同时显示），3单纯显示文字
     };
   },
   computed: {
-    inputData:{
-      get:function(){
+    inputData: {
+      get: function() {
         return this.dictTrueData[this.inputType];
       },
-      set:function(val){
-        return this.dictTrueData[this.inputType] = val;
-      }
-    }
+      set: function(val) {
+        return (this.dictTrueData[this.inputType] = val);
+      },
+    },
   },
   watch: {},
   mounted() {},
@@ -42,8 +44,6 @@ export default {
     checkTxRecord() {},
     clearTxCache() {},
     // 发送数据
-    sendData(){
-
-    }
+    sendData() {},
   },
 };

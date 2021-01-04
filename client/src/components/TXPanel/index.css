@@ -10,8 +10,14 @@
   overflow: hidden;
   height: 54px;
 }
-
-
+.data-auto-send-container{
+  width:100px;
+  margin-left: 5px;
+}
+.data-auto-send-container button{
+  width:100%;
+  margin:0;
+}
 .data-send-formatter-selector-container{
   width:62px;
   margin-right: 5px;
