@@ -118,19 +118,18 @@ export default {
       ],
     };
     // 使用刚指定的配置项和数据显示图表。
-    this.chartLine.setOption(option);
-
-    setInterval(() => {
-      if (this.uart_is_opened) {
-        option.series[0].data.push(parseInt(Math.random() * 100));
-        option.series[1].data.push(parseInt(Math.random() * 100));
-        if (option.series[0].data.length > 20) {
-          option.series[0].data.shift();
-          option.series[1].data.shift();
-        }
-        this.chartLine.setOption(option);
-      }
-    }, 1000);
+    // this.chartLine.setOption(option);
+    // setInterval(() => {
+    //   if (this.uart_is_opened) {
+    //     option.series[0].data.push(parseInt(Math.random() * 100));
+    //     option.series[1].data.push(parseInt(Math.random() * 100));
+    //     if (option.series[0].data.length > 20) {
+    //       option.series[0].data.shift();
+    //       option.series[1].data.shift();
+    //     }
+    //     this.chartLine.setOption(option);
+    //   }
+    // }, 1000);
   },
   methods: {
     openUartStateDidChange(val){

@@ -1,0 +1,22 @@
+.tools-box-container {
+  padding: 5px 5px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 98.5%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+  overflow: hidden;
+  height: 54px;
+}
+
+
+.data-send-selector-container{
+  width:62px;
+  margin-right: 10px;
+}
+.data-send-selector-container button{
+  width:100%;
+  margin:0;
+}

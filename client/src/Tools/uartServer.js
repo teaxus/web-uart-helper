@@ -51,6 +51,10 @@ let API = {
   getRxRecord() {
     _makeSendData("getRxRecord");
   },
+  // 清空接收记录
+  clearRxCache(){
+    _makeSendData("clearRxCache");
+  }
 };
 
 /**

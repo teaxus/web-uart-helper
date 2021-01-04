@@ -80,6 +80,9 @@ wss.on("connection", function (ws) {
           sendData(0, "updateDriveList", arrRespon);
         });
         break;
+      case "clearRxCache":
+        fs.writeFileSync(constVal.rxRecordPath, "");
+        break;
     }
     console.log(dictRequest);
   });

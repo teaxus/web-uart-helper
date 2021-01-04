@@ -1,15 +1,5 @@
 <template>
   <div class="rxpanel-container">
-    <div style="position: fixed;left: 70%;">
-      1、10/16进制转换，文字转换<br />
-      2、清空<br />
-      3、停止/继续显示接收数据<br />
-      4、数据填充符设置<br />
-      5、数据转义规则<br />
-      6、显示接收总量，每秒接收速率<br />
-      7、清空接收总量<br />
-    </div>
-
     <div class="data-container">
       <div class="data-loading">
         <!-- 16进制和文字混合显示 -->
@@ -47,7 +37,7 @@
                 </div>
               </td>
               <td>
-                <div v-if="showType == 1" class="table-data-tail">
+                <div v-if="hexTypeShowText" class="table-data-tail">
                   {{ item.join("") }}
                 </div>
               </td>
@@ -62,26 +52,36 @@
         </pre>
         </div>
 
-        <div id="keepBottom" style="width:100px;height: 1px;margin-top: 60px;"></div>
+        <div id="keepBottom" style="width:100px;height: 10px;margin-top: 70px;"></div>
       </div>
     </div>
 
 
     <!-- 工具栏 -->
     <div class="tools-box-container">
+      <div class="data-show-selector-container">
+        <van-button :type="showType == 1 ? 'primary':'default'" size="mini" icon="x fa fa-database" @click="showType=1">
+          16进制
+        </van-button>
+        <van-button :type="showType == 3 ? 'primary':'default'" size="mini" icon="x fa fa-file-text" @click="showType=3">
+          字符串
+        </van-button>
+      </div>
 
-      <van-button @click="showType=1">
-        16进制文字混合
-      </van-button>
-      <van-button @click="showType=2">
-        单纯显示16进制
-      </van-button>
-      <van-button @click="showType=3">
-        单纯显示文字
-      </van-button>
-
-      <van-button @click="pauseReflashNewRx" style="float: right;margin-left: auto;" :type="reflashNewRx ? 'danger':'primary'" :icon="reflashNewRx ? 'x fa fa-pause':'x fa fa-play'">{{reflashNewRx ? '暂停':'继续'}}更新</van-button>
-      <van-button @click="clearRxCache" style="float: right;" type="danger" icon="el-icon-delete">清空接收记录</van-button>
+      <div>
+        <!-- 16进制显示格式选项 -->
+        <div v-if="showType == 1" class="data-check-func-container">
+          <van-checkbox icon-size="15px" v-model="hexTypeShowText">
+            <span>文本查看辅助</span>
+          </van-checkbox>
+        </div>
+        
+        <!-- 文本显示格式选项 -->
+      </div>
+      <div class="rxdata-operator-container">
+        <van-button @click="pauseReflashNewRx" size="mini" :type="reflashNewRx ? 'danger':'primary'" :icon="reflashNewRx ? 'x fa fa-pause':'x fa fa-play'">{{reflashNewRx ? '暂停':'继续'}}更新</van-button>
+        <van-button @click="clearRxCache" size="mini" type="danger" icon="el-icon-delete">清空接收记录</van-button>
+      </div>
     </div>
   </div>
 </template>
