@@ -12,11 +12,21 @@
 }
 
 
-.data-send-selector-container{
+.data-send-formatter-selector-container{
   width:62px;
-  margin-right: 10px;
+  margin-right: 5px;
+  float: right;
+  margin-left: auto;
 }
-.data-send-selector-container button{
+.data-send-formatter-selector-container button{
   width:100%;
   margin:0;
+}
+
+.txdata-operator-container{
+  width: 98px;
+}
+.txdata-operator-container button{
+  margin: 0;
+  width: 100%;
 }

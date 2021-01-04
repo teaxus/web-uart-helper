@@ -1,5 +1,4 @@
-
-import { Notify } from 'vant';
+import { Notify } from "vant";
 
 export default {
   name: "TXPanel",
@@ -14,16 +13,21 @@ export default {
   mounted() {},
   methods: {
     inpuDataChange(e) {
-      if(this.inputType == 1){
+      if (this.inputType == 1) {
         let data = e.data;
         if (data != null) {
           data = data.toLowerCase();
-          if("1234567890abcdef".indexOf(data) == -1){ //输入无效的数据
-            this.inputData = this.inputData.substr(0, this.inputData.length - 1).toUpperCase();
-            Notify({ type: 'warning', message: "请输入正确格式的16进制数据" });
+          if ("1234567890abcdef".indexOf(data) == -1) {
+            //输入无效的数据
+            this.inputData = this.inputData
+              .substr(0, this.inputData.length - 1)
+              .toUpperCase();
+            Notify({ type: "warning", message: "请输入正确格式的16进制数据" });
           }
         }
       }
     },
+    checkTxRecord() {},
+    clearTxCache() {},
   },
 };

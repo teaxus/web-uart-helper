@@ -80,7 +80,7 @@
       </div>
       <div class="rxdata-operator-container">
         <van-button @click="pauseReflashNewRx" size="mini" :type="reflashNewRx ? 'danger':'primary'" :icon="reflashNewRx ? 'x fa fa-pause':'x fa fa-play'">{{reflashNewRx ? '暂停':'继续'}}更新</van-button>
-        <van-button @click="clearRxCache" size="mini" type="danger" icon="el-icon-delete">清空接收记录</van-button>
+        <van-button @click="clearRxCache" size="mini" type="danger" icon="x fa fa-trash-o">清空接收记录</van-button>
       </div>
     </div>
   </div>
