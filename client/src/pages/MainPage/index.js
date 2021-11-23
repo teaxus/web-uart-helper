@@ -29,7 +29,7 @@ export default {
       serialPortConnectConfig: {
         //串口链接配置
         connectPortName: "", //连接端口的名称
-        baudRate: 9700, //波特率
+        baudRate: 9600, //波特率
         parity: "none", //奇偶校验
         dataBits: 8, //数据位
         stopBits: 1, //停止位

@@ -1,4 +1,5 @@
 import { Notify } from "vant";
+import uartServer from "@/Tools/uartServer.js";
 
 export default {
   name: "TXPanel",
@@ -6,10 +7,10 @@ export default {
     return {
       dictTrueData: {
         // 真正的数据
-        "1": "",
-        "3": "",
+        "TEXT": "",
+        "HEX": "",
       },
-      inputType: 3, //  默认1（16进制和文字同时显示），3单纯显示文字
+      inputType: localStorage.txInputType || 'TEXT', //  默认Text（16进制和文字同时显示） ，16进制是HEX
     };
   },
   computed: {
@@ -22,11 +23,19 @@ export default {
       },
     },
   },
-  watch: {},
-  mounted() {},
+  watch: {
+    inputType: function(newVal) {
+        localStorage.txInputType = newVal;
+    }
+  },
+  mounted() {
+    if(localStorage.txInputData || null) {
+      this.inputData = localStorage.txInputData;
+    }
+  },
   methods: {
     inpuDataChange(e) {
-      if (this.inputType == 1) {
+      if (this.inputType == 'HEX') {
         let data = e.data;
         if (data != null) {
           data = data.toLowerCase();
@@ -40,10 +49,22 @@ export default {
         }
         this.inputData = this.inputData.toUpperCase();
       }
+      localStorage.txInputData = this.inputData ;
     },
     checkTxRecord() {},
     clearTxCache() {},
     // 发送数据
-    sendData() {},
+    sendData() {
+      if(!this.inputData) {
+        Notify({ type: "warning", message: "不能发送空字符串" });
+        return;
+      }
+      else if(this.inputData.length%2 != 0){
+        Notify({ type: "warning", message: "请输入正确的16进制数据" });
+        return;
+      }
+      uartServer.API.tranTXData({dataType:this.inputType,data:this.inputData});
+      console.log(this.inputData);
+    },
   },
 };

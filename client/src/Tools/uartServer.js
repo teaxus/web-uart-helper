@@ -54,6 +54,10 @@ let API = {
   // 清空接收记录
   clearRxCache(){
     _makeSendData("clearRxCache");
+  },
+  // 发送数据
+  tranTXData(param){
+    _makeSendData("tranTXData", param);
   }
 };
 

@@ -1,15 +1,17 @@
 const SerialPort = require("serialport");
 let serialPort = null;
-let ondata_handle = [];
+const { arrTrans } = require("./tools.js");
 
+// 当接收到数据时候的回调
 function _rxData(data) {
-  ondata_handle.forEach((cb) => {
-    let rxStr = data.toString("ascii");
-    cb(rxStr);
+  exportObj.ondata_handle.forEach((cb) => {
+    cb(data.join(" ") + " ");
   });
 }
 
 let exportObj = {
+  decode: "ascii",
+  ondata_handle: [],
   getPort(callback) {
     SerialPort.list().then((ports) => {
       let arrRespon = [];
@@ -24,7 +26,7 @@ let exportObj = {
    * 用于打开端口，会传入para字典里面包含了连接串口的参数.
    * @param {object} param  portName:端口名称/baudRate:波特率/dataBits:数据位/parity:奇偶校验/stopBits:停止位
    */
-  openPort(param,errorCallback) {
+  openPort(param, errorCallback) {
     serialPort = new SerialPort(param.connectPortName, {
       baudRate: parseInt(param.baudRate), //波特率
       dataBits: parseInt(param.dataBits), //数据位
@@ -37,7 +39,7 @@ let exportObj = {
     serialPort.open(function (error) {
       if (error) {
         console.log("打开端口" + param.connectPortName + "错误：" + error);
-        if(errorCallback != null){
+        if (errorCallback != null) {
           errorCallback(error);
         }
       } else {
@@ -52,18 +54,34 @@ let exportObj = {
       if (serialPort != null) {
         serialPort.close();
         serialPort = null;
-        console.log("端口已关闭")
+        console.log("端口已关闭");
       }
     } catch (err) {}
   },
   addOnDataCallback(callback) {
-    ondata_handle.push(callback);
+    exportObj.ondata_handle.push(callback);
   },
-  portIsOpen(){
-    if(serialPort == null){
+  portIsOpen() {
+    if (serialPort == null) {
       return false;
     }
     return serialPort.isClose == false;
-  }
+  },
+  sendData({ dataType, data }) {
+    if (serialPort == null) {
+      console.warn("serialPort 对象为空");
+      return;
+    }
+    // 16进制才转发，其他type都是直接发字符串
+    if (dataType == "HEX") {
+      let arrSend = arrTrans(2, data.split(""));
+      arrSend.forEach((item, index) => {
+        arrSend[index] = parseInt(item.join(""), 16);
+      });
+      serialPort.write(arrSend);
+    } else {
+      serialPort.write(data);
+    }
+  },
 };
 module.exports = exportObj;

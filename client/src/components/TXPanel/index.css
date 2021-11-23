@@ -10,9 +10,15 @@
   overflow: hidden;
   height: 54px;
 }
+.data-input-container textarea{
+  min-height: 150px;
+  width: 100%;
+}
 .data-auto-send-container{
   width:100px;
-  margin-left: 5px;
+  margin-right: 5px;
+  float: right;
+  margin-left: auto;
 }
 .data-auto-send-container button{
   width:100%;
@@ -20,9 +26,7 @@
 }
 .data-send-formatter-selector-container{
   width:62px;
-  margin-right: 5px;
-  float: right;
-  margin-left: auto;
+  margin-left: 5px;
 }
 .data-send-formatter-selector-container button{
   width:100%;
