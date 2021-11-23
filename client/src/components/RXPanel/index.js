@@ -7,6 +7,7 @@ export default {
     return {
       bufferData: null,
       rxData: "",
+      uartStatus: {},
       rxDataArr: [],
       headRow: [],
       showDataArrs: [],
@@ -41,6 +42,7 @@ export default {
     this.headRow = makeArry(1, this.rowSize); //  创建头部
     uartServer.API.getRxRecord();
     uartServer.bindValWithObj(this, "rxData", "rxRecord");
+    uartServer.bindValWithObj(this, "uartStatus", "updateUartStatus");
     uartServer.addCallbackWithAct("rxData", function(code, data) {
       if (_this.reflashNewRx) {
         _this.rxData += data.rxData;
@@ -62,11 +64,13 @@ export default {
       });
       // 转换成每行展示的数据
       this.showDataArrs = arrTrans(this.rowSize, rxTmp);
-      let last_arr = this.showDataArrs[this.showDataArrs.length - 1];
-      let fill_count = this.rowSize - last_arr.length;
-      if (fill_count > 0) {
-        let fill_arr = makeArry(0, fill_count - 1, "");
-        last_arr.push.apply(last_arr, fill_arr);
+      if(this.showDataArrs.length > 0) {
+        let last_arr = this.showDataArrs[this.showDataArrs.length - 1];
+        let fill_count = this.rowSize - last_arr.length;
+        if (fill_count > 0) {
+          let fill_arr = makeArry(0, fill_count - 1, "");
+          last_arr.push.apply(last_arr, fill_arr);
+        }
       }
       // 保持滑动到底部
       setTimeout(function() {
@@ -80,7 +84,7 @@ export default {
     // 清除接收缓存
     clearRxCache() {
       uartServer.API.clearRxCache();
-      this.rxData = " ";
+      this.rxData = "";
     },
     hexTypeShowTextChange() {
       localStorage.hexTypeShowText = this.hexTypeShowText;

@@ -91,6 +91,7 @@
 
         <!-- 文本显示格式选项 -->
       </div>
+      <div class="rxcount-show-container">已接收：{{(uartStatus.rxStatus || {}).rxCount || 0}}</div>
       <div class="rxdata-operator-container">
         <van-button
           @click="pauseReflashNewRx"

@@ -40,3 +40,17 @@
   margin: 0;
   width: 100%;
 }
+.txcount-show-container {
+  color: white;
+  margin-left: auto;
+}
+.show-tx-record-container {
+  position: absolute;
+  top: 38px;
+  right: 0;
+  width: auto;
+  max-width: 60%;
+  padding: 10px;
+  background-color: purple;
+  color: whitesmoke;
+}

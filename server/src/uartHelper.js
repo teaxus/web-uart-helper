@@ -1,6 +1,6 @@
 const SerialPort = require("serialport");
-let serialPort = null;
 const { arrTrans } = require("./tools.js");
+let serialPort = null;
 
 // 当接收到数据时候的回调
 function _rxData(data) {
@@ -12,6 +12,7 @@ function _rxData(data) {
 let exportObj = {
   decode: "ascii",
   ondata_handle: [],
+  // 获取有什么端口
   getPort(callback) {
     SerialPort.list().then((ports) => {
       let arrRespon = [];
@@ -67,6 +68,7 @@ let exportObj = {
     }
     return serialPort.isClose == false;
   },
+  // 发送数据
   sendData({ dataType, data }) {
     if (serialPort == null) {
       console.warn("serialPort 对象为空");

@@ -22,7 +22,7 @@
             :left.sync="txWindowInfo.left" :top.sync="txWindowInfo.top" :width.sync="txWindowInfo.width"
             :height.sync="txWindowInfo.height" :isScrollable="true" :resizable="true" :minWidth="50" :minHeight="50">
             <div>
-              <tx-planel />
+              <tx-planel  :height="txWindowInfo.height"/>
             </div>
           </hsc-window>
         </component>

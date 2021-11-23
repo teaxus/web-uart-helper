@@ -1,17 +1,22 @@
 const WebSocketServer = require("ws").Server;
 const configHelper = require("./configHelper.js");
-const { makeDirRecursionSync, mkJsonStr } = require("./tools.js");
+const {
+  makeDirRecursionSync,
+  mkJsonStr,
+  cacheSet,
+  cacheGet,
+} = require("./tools.js");
 const uartHelper = require("./uartHelper.js");
 const constVal = require("./constVal.js");
 const fs = require("fs");
+let wsHandle = null;
 
 makeDirRecursionSync(constVal.cache); //  创建缓存目录
 
-wss = new WebSocketServer({ port: 8181 });
-wss.on("connection", function (ws) {
-  // ws发送方法
-  function sendData(code, actToClient, data) {
-    ws.send(
+// ws发送方法
+function sendData(code, actToClient, data) {
+  if(wsHandle != null) {
+    wsHandle.send(
       mkJsonStr({
         code,
         data,
@@ -19,7 +24,31 @@ wss.on("connection", function (ws) {
       })
     );
   }
+}
 
+// 周期任务
+setInterval(() => {
+  const oldRXStatus = cacheGet("rxDataInfo") || {};
+  const oldTXStatus = cacheGet("txDataInfo") || {};
+
+  
+  sendData(0, "updateUartStatus", {rxStatus: oldRXStatus, txStatus: oldTXStatus});
+
+  // 防止数据呆住，所以要对一些数据进行递减处理
+  oldRXStatus.speedBytePerSecond = (oldRXStatus.speedBytePerSecond || 0)/2;
+  oldTXStatus.speedBytePerSecond = (oldTXStatus.speedBytePerSecond || 0)/2;
+  if(oldRXStatus.speedBytePerSecond < 0.001) {
+    oldRXStatus.speedBytePerSecond = 0;
+  }
+  if(oldTXStatus.speedBytePerSecond < 0.001) {
+    oldTXStatus.speedBytePerSecond = 0;
+  }
+  cacheSet("rxDataInfo", oldRXStatus);
+  cacheSet("txDataInfo", oldTXStatus);
+}, 500);
+wss = new WebSocketServer({ port: 8181 });
+wss.on("connection", function (ws) {
+  wsHandle = ws;
   function sendError(code, showMsg) {
     sendData(code, "showError", { showMsg });
   }
@@ -54,6 +83,20 @@ wss.on("connection", function (ws) {
       // 创建
       fs.writeFileSync(constVal.rxRecordPath, data);
     }
+
+    // 更新当前的接收状态---Begin
+    const oldRXStatus = cacheGet("rxDataInfo");
+    const nowDate = new Date().getTime(); // 当前时间
+    let nowStatus = { rxDate: nowDate, rxCount: data.split(" ").length-1 };
+    if (oldRXStatus != null) {
+      const lastRXDate = oldRXStatus.rxDate;  // 最后一次更新的时间
+      const speed = nowStatus.rxCount/ ((nowDate-lastRXDate)/1000); // 单位是byte/2
+      nowStatus.speedBytePerSecond = ((nowStatus.speedBytePerSecond || 0) + speed)/2;
+      nowStatus.rxCount += oldRXStatus.rxCount;
+    }
+    cacheSet("rxDataInfo", nowStatus);
+    // 更新当前的接收状态---End
+
     // 通知前端收到数据
     sendData(0, "rxData", { rxData: data });
   });
@@ -62,8 +105,19 @@ wss.on("connection", function (ws) {
     switch (dictRequest.actToDrive) {
       // 发送信息
       case "tranTXData":
-        console.log(dictRequest.data.data);
         uartHelper.sendData(dictRequest.data);
+        // 更新当前的接收状态---Begin
+        const oldTXStatus = cacheGet("txDataInfo");
+        const nowDate = new Date().getTime(); // 当前时间
+        let nowStatus = { txDate: nowDate, txCount: dictRequest.data.data.length/(dictRequest.data.dataType == "HEX" ? 2:1) };
+        if (oldTXStatus != null) {
+          const lastTXDate = oldTXStatus.txDate;  // 最后一次更新的时间
+          const speed = nowStatus.txCount/ ((nowDate-lastTXDate)/1000/(dictRequest.data.dataType == "HEX" ? 2:1)); // 单位是byte/2
+          nowStatus.speedBytePerSecond = ((nowStatus.speedBytePerSecond || 0) + speed)/2;
+          nowStatus.txCount += oldTXStatus.txCount;
+        }
+        cacheSet("txDataInfo", nowStatus);
+        // 更新当前的接收状态---End
         break;
       // 获取收到的信息
       case "getRxRecord":
@@ -90,6 +144,14 @@ wss.on("connection", function (ws) {
         break;
       case "clearRxCache":
         fs.writeFileSync(constVal.rxRecordPath, "");
+        const oldRXStatus = cacheGet("rxDataInfo");
+        oldRXStatus.rxCount = 0;
+        cacheSet("rxDataInfo", oldRXStatus);
+        break;
+      case "clearTxCache":
+        const txStatus = cacheGet("txDataInfo");
+        txStatus.txCount = 0;
+        cacheSet("txDataInfo", txStatus);
         break;
     }
     console.log(dictRequest);

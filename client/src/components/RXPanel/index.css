@@ -64,12 +64,11 @@
   margin: 0;
   width: 100%;
 }
-/* .tools-box-container button{
-  margin-left: 10px;
+
+.rxcount-show-container {
+  color: white;
+  margin-left: auto;
 }
-.tools-box-container button:last-child{
-  margin-right: 10px;
-} */
 
 .cDiv {  
   -webkit-user-select: none;  /* 禁止 DIV 中的文本被鼠标选中 */

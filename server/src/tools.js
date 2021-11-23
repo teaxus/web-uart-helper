@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-
+const constVal = require("./constVal.js");
 
 /**
  * 使用递归方式创建目录.
@@ -18,7 +18,6 @@ function makeDirRecursionSync(dirname) {
   }
 }
 
-
 /**
  * 对象转json字符串.
  *
@@ -35,7 +34,7 @@ function mkJsonStr(obj) {
  * @param {number} num 分割的列数.
  * @param {Array} arr 一维数组.
  */
- function arrTrans(num, arr) {
+function arrTrans(num, arr) {
   const newArr = [];
   while (arr.length > 0) {
     newArr.push(arr.splice(0, num));
@@ -43,7 +42,46 @@ function mkJsonStr(obj) {
   return newArr;
 }
 
+// 读取缓存
+function _readCache() {
+  let readCache = {};
+
+  if (fs.existsSync(constVal.uartStatusInfo)) {
+    try {
+      readCache = JSON.parse(fs.readFileSync(constVal.uartStatusInfo, "utf8"));
+    }
+    catch(e) {
+      console.warn(e);
+    }
+  }
+  return readCache;
+}
+
+/**
+ * 保存缓存.
+ *
+ * @param {string}} key 对象.
+ * @param {number|string|object} val 对象.
+ */
+function cacheSet(key, val) {
+  const readCache =  _readCache();
+  readCache[key] = val;
+  fs.writeFileSync(constVal.uartStatusInfo, JSON.stringify(readCache));
+}
+
+/**
+ * 从缓存获取数据.
+ *
+ * @param {string}} key 对象.
+ */
+function cacheGet(key) {
+  return _readCache()[key];
+}
 
 module.exports = {
-  makeDirRecursionSync, mkJsonStr, arrTrans
+  makeDirRecursionSync,
+  mkJsonStr,
+  arrTrans,
+  cacheSet,
+  cacheGet,
 };

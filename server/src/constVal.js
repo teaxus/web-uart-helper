@@ -8,4 +8,5 @@ module.exports = {
   keepaliveTime: 1000, // 保持连接周期(ms)
   cache,
   rxRecordPath: path.join(cache, "rxRecordPath.txt"),
+  uartStatusInfo: path.join(cache, "uartStatusInfo.json"),
 };
