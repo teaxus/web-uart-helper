@@ -130,6 +130,10 @@ wss.on("connection", function (ws) {
         );
         break;
       case "openPort":
+        if(dictRequest.data.connectPortName == '') {
+          console.log("没有选择端口")
+          return;
+        }
         uartHelper.openPort(dictRequest.data, function (error) {
           sendError(1, "请选择正确的端口");
         });

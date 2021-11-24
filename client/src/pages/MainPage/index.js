@@ -150,6 +150,11 @@ export default {
 
     uartControl(openCMD) {
       if (openCMD) {
+        if(this.serialPortConnectConfig.connectPortName == '') {
+          Notify({ type: "warning", message: "没有选择端口" });
+          this.showSerialPortConnectConfig = true;
+          return
+        }
         uartServer.API.openPort(this.serialPortConnectConfig);
       } else {
         uartServer.API.shutdownUart();
