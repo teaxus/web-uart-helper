@@ -14,7 +14,8 @@ Vue.use(VueWindow)
 Vue.config.productionTip = false;
 
 
-uartServer.startup("localhost:8181");
+// uartServer.startup("localhost:8181");
+uartServer.startup("192.168.100.18:8181");
 new Vue({
   router,
   render: h => h(App),
