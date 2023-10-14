@@ -1,72 +1,34 @@
 <template>
-  <div
-    class="v-sidebar-menu"
-    :class="sidebarClass"
-    :style="[{ 'max-width': sidebarWidth }]"
-    @mouseleave="onMouseLeave"
-    @mouseenter="onMouseEnter"
-  >
+  <div class="v-sidebar-menu" :class="sidebarClass" :style="[{ 'max-width': sidebarWidth }]" @mouseleave="onMouseLeave"
+    @mouseenter="onMouseEnter">
     <slot name="header" />
-    <div
-      class="vsm--scroll-wrapper"
-      :style="
-        isCollapsed && [
-          rtl ? { 'margin-left': '-17px' } : { 'margin-right': '-17px' },
-        ]
-      "
-    >
+    <div class="vsm--scroll-wrapper" :style="isCollapsed && [
+      rtl ? { 'margin-left': '-17px' } : { 'margin-right': '-17px' },
+    ]
+      ">
       <div class="vsm--list" :style="isCollapsed && { width: widthCollapsed }">
-        <sidebar-menu-item
-          v-for="(item, index) in menu"
-          :key="index"
-          :item="item"
-          :is-collapsed="isCollapsed"
-          :active-show="activeShow"
-          :show-one-child="showOneChild"
-          :show-child="showChild"
-          :rtl="rtl"
-          :mobile-item="mobileItem"
-          :disable-hover="disableHover"
-          @set-mobile-item="setMobileItem"
-          @unset-mobile-item="unsetMobileItem"
-        >
-          <slot :slot="item.slotName" :name="item.slotName" :show="!isCollapsed"/>
+        <sidebar-menu-item v-for="(item, index) in menu" :key="index" :item="item" :is-collapsed="isCollapsed"
+          :active-show="activeShow" :show-one-child="showOneChild" :show-child="showChild" :rtl="rtl"
+          :mobile-item="mobileItem" :disable-hover="disableHover" @set-mobile-item="setMobileItem"
+          @unset-mobile-item="unsetMobileItem">
+          <slot :slot="item.slotName" :name="item.slotName" :show="!isCollapsed" />
           <slot slot="dropdown-icon" name="dropdown-icon" />
         </sidebar-menu-item>
       </div>
-      <div
-        v-if="isCollapsed"
-        class="vsm--mobile-item"
-        :style="mobileItemStyle.item"
-      >
-        <sidebar-menu-item
-          v-if="mobileItem"
-          :item="mobileItem"
-          :is-mobile-item="true"
-          :mobile-item-style="mobileItemStyle"
-          :is-collapsed="isCollapsed"
-          :show-child="showChild"
-          :rtl="rtl"
-          :disable-hover="disableHover"
-        >
+      <div v-if="isCollapsed" class="vsm--mobile-item" :style="mobileItemStyle.item">
+        <sidebar-menu-item v-if="mobileItem" :item="mobileItem" :is-mobile-item="true"
+          :mobile-item-style="mobileItemStyle" :is-collapsed="isCollapsed" :show-child="showChild" :rtl="rtl"
+          :disable-hover="disableHover">
           <slot slot="dropdown-icon" name="dropdown-icon" />
         </sidebar-menu-item>
         <transition name="slide-animation">
-          <div
-            v-if="mobileItem"
-            class="vsm--mobile-bg"
-            :style="mobileItemStyle.background"
-          />
+          <div v-if="mobileItem" class="vsm--mobile-bg" :style="mobileItemStyle.background" />
         </transition>
       </div>
     </div>
     <slot name="footer" />
-    <button
-      v-if="!hideToggle"
-      class="vsm--toggle-btn"
-      :class="{ 'vsm--toggle-btn_slot': $slots['toggle-icon'] }"
-      @click="onToggleClick"
-    >
+    <button v-if="!hideToggle" class="vsm--toggle-btn" :class="{ 'vsm--toggle-btn_slot': $slots['toggle-icon'] }"
+      @click="onToggleClick">
       <slot name="toggle-icon" />
     </button>
   </div>
@@ -171,11 +133,10 @@ export default {
           { top: `${this.mobileItemHeight}px` },
           { width: "100%" },
           {
-            "max-height": `${
-              this.parentHeight -
+            "max-height": `${this.parentHeight -
               (this.mobileItemPos + this.mobileItemHeight) -
               this.parentOffsetTop
-            }px`,
+              }px`,
           },
           { "overflow-y": "auto" },
         ],
@@ -287,6 +248,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<!-- <style lang="scss">
 @import "./scss/vue-sidebar-menu";
+</style> -->
+<style lang="less">
+@import "./less/vue-sidebar-menu.less";
 </style>
