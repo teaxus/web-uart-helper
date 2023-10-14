@@ -1,0 +1,23 @@
+<!-- <protocol name="protocol_string">
+  <length />
+  <header tag="0x0a" />
+  <data name="msg" show="true" type="string" character-set="utf8" />
+  <checker target="header,msg" type="crc" />
+  <checker target="header,msg" type="2byte_sum" />
+</protocol> -->
+
+
+<!-- begin,end,length, checker本质来说都属于byte的一种，bytes是数组bytes -->
+<protocol name="bms_manager">
+  <begin val="0xDD" />
+
+  <branch>
+    <byte branch-name="" name="status" val="0xA5" />
+  </branch>
+  <length target="data" />
+  <bytes name="data" type="byte">
+    
+  </bytes>
+  <checker target="status,length,data" type="sum" size="2" />
+  <end val="0x77" />
+</protocol>

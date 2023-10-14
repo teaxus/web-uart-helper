@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "web串口工具服务端",
   "main": "src/main.js",
+  "bin": "./src/main.js",
   "scripts": {
-    "test": "node src/main.js"
+    "start": "node src/main.js",
+    "buildEXE":"pkg ."
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,9 @@
     "serialport": "^9.0.4",
     "ws": "^7.4.1",
     "xml2js": "^0.4.23"
+  },
+  "pkg": {
+    "targets": [ "macos" ],
+    "outputPath": "bin"
   }
 }
