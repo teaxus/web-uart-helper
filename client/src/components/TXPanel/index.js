@@ -29,19 +29,19 @@ export default {
   },
   computed: {
     inputData: {
-      get: function() {
+      get: function () {
         return this.dictTrueData[this.inputType];
       },
-      set: function(val) {
+      set: function (val) {
         return (this.dictTrueData[this.inputType] = val);
       },
     },
   },
   watch: {
-    inputType: function(newVal) {
+    inputType: function (newVal) {
       localStorage.txInputType = newVal;
     },
-    uart_is_opened: function() {
+    uart_is_opened: function () {
       this.checkAutoSendTask();
     },
   },
@@ -97,7 +97,10 @@ export default {
       if (!this.inputData) {
         Notify({ type: "warning", message: "不能发送空字符串" });
         return false;
-      } else if (this.inputType == "HEX" && this.inputData.length % 2 != 0) {
+      } else if (
+        this.inputType == "HEX" &&
+        this.inputData.replaceAll(" ", "").length % 2 != 0
+      ) {
         Notify({ type: "warning", message: "请输入正确的16进制数据" });
         return false;
       }
@@ -106,11 +109,15 @@ export default {
     // 发送数据
     sendData() {
       if (this.verifySendData() == false) return;
+      var sendData = this.inputData;
+      if (this.inputType == "HEX") {
+        sendData = sendData.replaceAll(" ", "");
+      }
       uartServer.API.tranTXData({
         dataType: this.inputType,
-        data: this.inputData,
+        data: sendData,
       });
-      this._updateSendMessage(this.inputType, this.inputData);
+      this._updateSendMessage(this.inputType, sendData);
     },
     resendData(data) {
       const arrTmp = data.split("|");

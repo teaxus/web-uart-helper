@@ -2,10 +2,11 @@ import UartConfig from "@/components/UartConfig/index.vue";
 import SideBar from "@/components/SideBarMenu/index.vue";
 import TXPanel from "@/components/TXPanel/index.vue";
 import RXPanel from "@/components/RXPanel/index.vue";
+import Studio from "@/components/Studio/index.vue";
 import { ParticlesBg } from "particles-bg-vue";
 import uartServer from "@/Tools/uartServer.js";
-import { Notify } from 'vant';
-import * as VueWindow from '@hscmap/vue-window'
+import { Notify } from "vant";
+import * as VueWindow from "@hscmap/vue-window";
 
 export default {
   name: "MainPage",
@@ -14,16 +15,18 @@ export default {
     ParticlesBg,
     "tx-planel": TXPanel,
     "rx-planel": RXPanel,
+    studio: Studio,
     "side-bar": SideBar,
     "uart-config": UartConfig,
   },
   data() {
     return {
-      StyleWhite:VueWindow.StyleWhite,
+      StyleWhite: VueWindow.StyleWhite,
       showSerialPortConnectConfig: false, // 串口配置弹窗
       sideBarStatus: {
         open_tx_panel: localStorage["open_tx_panel"] != "false",
         open_rx_panel: localStorage["open_rx_panel"] != "false",
+        open_studio_panel: localStorage["open_studio_panel"] == "true",
         min_silder_bar: localStorage["min_silder_bar"] == "true",
       },
       serialPortConnectConfig: {
@@ -38,7 +41,7 @@ export default {
       defaultWindowInfo: {
         left: 0,
         top: 0,
-        width: 1000,
+        width: 800,
         height: 180,
       },
       rxWindowInfo: {
@@ -53,29 +56,41 @@ export default {
         width: 0,
         height: 0,
       },
+      studioWindowInfo: {
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+      },
     };
   },
   computed: {
     windowsLeftOffset() {
       //窗口偏移
-      return this.sideBarStatus.min_silder_bar ? 60 : 236;
+      return this.sideBarStatus.min_silder_bar ? 60 : 226;
     },
   },
   watch: {
     rxWindowInfo: {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["rxWindowInfo"] = JSON.stringify(val);
       },
       deep: true,
     },
     txWindowInfo: {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["txWindowInfo"] = JSON.stringify(val);
       },
       deep: true,
     },
+    studioWindowInfo: {
+      handler: function (val) {
+        localStorage["studioWindowInfo"] = JSON.stringify(val);
+      },
+      deep: true,
+    },
     serialPortConnectConfig: {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["serialPortConnectConfig"] = JSON.stringify(val);
       },
       deep: true,
@@ -85,16 +100,17 @@ export default {
     this.initWindows();
     this.initSerialPortConnectConfig();
 
-    uartServer.addCallbackWithAct("showError", function(code, data) {
-      if(code != 0){
-        Notify({ type: 'warning', message: data.showMsg });
+    uartServer.addCallbackWithAct("showError", function (code, data) {
+      if (code != 0) {
+        Notify({ type: "warning", message: data.showMsg });
       }
     });
   },
   methods: {
     initWindows() {
-      this.defaultWindowInfo.width = window.innerWidth - this.windowsLeftOffset;
-      this.defaultWindowInfo.height = window.innerHeight / 2 - 10;
+      this.defaultWindowInfo.width =
+        window.innerWidth - this.windowsLeftOffset + 10;
+      this.defaultWindowInfo.height = window.innerHeight / 2 - 40;
       if (localStorage["rxWindowInfo"] == null) {
         this.rxWindowInfo.left = this.windowsLeftOffset;
         this.rxWindowInfo.top = 0;
@@ -122,6 +138,19 @@ export default {
         this.txWindowInfo.width = dictTxWindowInfo.width;
         this.txWindowInfo.height = dictTxWindowInfo.height;
       }
+      if (localStorage["studioWindowInfo"] == null) {
+        this.studioWindowInfo.left = this.windowsLeftOffset;
+        this.studioWindowInfo.top = 0;
+        this.studioWindowInfo.width = this.defaultWindowInfo.width;
+        this.studioWindowInfo.height = this.defaultWindowInfo.height * 2;
+      } else {
+        let dictStudioWindowInfo = JSON.parse(localStorage["studioWindowInfo"]);
+        this.studioWindowInfo.left =
+          dictStudioWindowInfo.left || this.windowsLeftOffset;
+        this.studioWindowInfo.top = dictStudioWindowInfo.top;
+        this.studioWindowInfo.width = dictStudioWindowInfo.width;
+        this.studioWindowInfo.height = dictStudioWindowInfo.height;
+      }
     },
     initSerialPortConnectConfig() {
       let serialPortConnectConfig = localStorage["serialPortConnectConfig"];
@@ -138,7 +167,7 @@ export default {
         this.txWindowInfo.width -= 176;
       }
       let _this = this;
-      setTimeout(function() {
+      setTimeout(function () {
         _this.rxWindowInfo.left = _this.windowsLeftOffset;
         _this.txWindowInfo.left = _this.windowsLeftOffset;
       }, 1);
@@ -150,10 +179,10 @@ export default {
 
     uartControl(openCMD) {
       if (openCMD) {
-        if(this.serialPortConnectConfig.connectPortName == '') {
+        if (this.serialPortConnectConfig.connectPortName == "") {
           Notify({ type: "warning", message: "没有选择端口" });
           this.showSerialPortConnectConfig = true;
-          return
+          return;
         }
         uartServer.API.openPort(this.serialPortConnectConfig);
       } else {
@@ -173,6 +202,13 @@ export default {
     },
     RxPanelChange(isOpen) {
       this.sideBarStatus.open_rx_panel = isOpen;
+      console.log(
+        "🚀 ~ file: index.js ~ line 30 ~ RxPanelChange ~ isOpen",
+        isOpen
+      );
+    },
+    StudioPanelChange(isOpen) {
+      this.sideBarStatus.open_studio_panel = isOpen;
       console.log(
         "🚀 ~ file: index.js ~ line 30 ~ RxPanelChange ~ isOpen",
         isOpen

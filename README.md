@@ -19,3 +19,5 @@ web 版串口工具 使用的是 BS 结构
 ### 关于 keepalive
 
 keepalive 是串口服务端定期返回状态的地方，例如配置和串口连接情况。可以使用 bindValWithObj(obj,"keyPath","keepalive")绑定
+
+icon 库使用网页：https://fontawesome.com.cn/v4/icons

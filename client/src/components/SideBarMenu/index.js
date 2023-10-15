@@ -1,13 +1,13 @@
 import echarts from "echarts";
 import SideBarMenu from "./SidebarMenu.vue";
 import SidebarMenuIcon from "./SidebarMenuIcon.vue";
-import uartServer from '@/Tools/uartServer.js';
+import uartServer from "@/Tools/uartServer.js";
 
 export default {
   name: "SideBar",
   props: {
-    sideBarStatus:Object,
-    serialPortConnectConfig: Object
+    sideBarStatus: Object,
+    serialPortConnectConfig: Object,
   },
   components: {
     SidebarMenuIcon,
@@ -37,12 +37,15 @@ export default {
         {
           slotName: "upperComputerIDE", // 上位机集成开发工具
         },
+        {
+          slotName: "reflashPage", // 刷新页面
+        },
       ],
     };
   },
   watch: {
     "sideBarStatus.min_silder_bar": {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["min_silder_bar"] = val;
         this.$emit("barMiniChange", val);
         this.sideBarStatus.min_silder_bar = val;
@@ -50,7 +53,7 @@ export default {
       immediate: true,
     },
     "sideBarStatus.open_tx_panel": {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["open_tx_panel"] = val;
         this.$emit("TxPanelChange", val);
         this.sideBarStatus.txWindowIsOpen = val;
@@ -58,15 +61,27 @@ export default {
       immediate: true,
     },
     "sideBarStatus.open_rx_panel": {
-      handler: function(val) {
+      handler: function (val) {
         localStorage["open_rx_panel"] = val;
         this.$emit("RxPanelChange", val);
       },
       immediate: true,
     },
+    "sideBarStatus.open_studio_panel": {
+      handler: function (val) {
+        localStorage["open_studio_panel"] = val;
+        this.$emit("StudioPanelChange", val);
+      },
+      immediate: true,
+    },
   },
   mounted() {
-    uartServer.bindValWithObj(this,"uart_is_opened","keepalive","state.serialOpened")
+    uartServer.bindValWithObj(
+      this,
+      "uart_is_opened",
+      "keepalive",
+      "state.serialOpened"
+    );
     this.chartLine = echarts.init(document.getElementById("chartLineBox"));
 
     // 指定图表的配置项和数据
@@ -135,14 +150,17 @@ export default {
     // }, 1000);
   },
   methods: {
-    openUartStateDidChange(val){
+    openUartStateDidChange(val) {
       this.$emit("openControl", val);
     },
     onToggleCollapse(collapsed) {
       this.sideBarStatus.min_silder_bar = collapsed;
     },
-    configSerialPortConnect(){
+    configSerialPortConnect() {
       this.$emit("configSerialPortConnect", true);
-    }
+    },
+    reloadPage() {
+      window.location.reload();
+    },
   },
 };

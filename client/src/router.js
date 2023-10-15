@@ -1,6 +1,7 @@
 import VueRouter from "vue-router";
 
 const MainPage = () => import("@/pages/MainPage/index.vue");
+const Demo = () => import("@/pages/Demo/index.vue");
 
 const router = new VueRouter({
   mode: "hash", //history  hash
@@ -9,6 +10,11 @@ const router = new VueRouter({
       path: "/",
       name: "MainPage",
       component: MainPage,
+    },
+    {
+      path: "/demo",
+      name: "Demo",
+      component: Demo,
     },
   ],
 });
